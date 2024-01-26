@@ -31,7 +31,7 @@ This project is a ReactJS web application with Redux for dynamically adding and 
 **Commands:**
 
    ```bash
-   git clone https://github.com/kamal9494/farmwiseai-assignment
+   git clone https://github.com/kamal9494/farmwiseai-assignment.git
    cd farmwiseai-assignment
    npm install
    npm run dev

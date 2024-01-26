@@ -13,7 +13,8 @@ This project is a ReactJS web application with Redux for dynamically adding and 
 1.  Select a category from the dropdown (Student, Self-Employee, Business).
 2. Select Field Type (Text Box, Dropdown, Date)
 3.  Enter the details for each field (Field Display Name, Field Data Type, Field Validation, Field Data for Dropdown).
-4.  Click the "Confirm" button.
+4.  If the user wants to add a dropdown, in Field Data, each dropdown element should be separated by a comma. (Example: ECE,CSE,IT)
+5.  Click the "Confirm" button.
 
 **Displaying Fields**
 

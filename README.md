@@ -38,5 +38,6 @@ This project is a ReactJS web application with Redux for dynamically adding and 
    npm run dev
 ```
 ## Preview
-![image](https://github.com/kamal9494/farmwiseai-assignment/assets/97849725/f144e2e7-db1f-4280-893d-8ef72cbe9b08)
+![image](https://github.com/kamal9494/farmwiseai-assignment/assets/97849725/8e8a43bb-cb25-4d4e-9337-924af817c546)
+
 

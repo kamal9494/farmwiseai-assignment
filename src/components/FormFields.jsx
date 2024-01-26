@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../redux/slices/fieldSlice";
 import Selector from "./Selector";
+import { toast } from "react-toastify";
 
 const FormFields = () => {
   const [category, setCategory] = useState("");
@@ -20,26 +21,26 @@ const FormFields = () => {
   const inputs = useSelector((state) => state.fields);
 
   const handleConfirm = () => {
-    setMsg("");
-    setError("");
+    const newErrors = {};
     if (fieldType === "text" && !fieldDisplayName) {
-      setError("Please fill details completely");
+      newErrors[fieldType] = "Please fill details completely";
+      toast.error("Display name cannot be empty!");
       return;
     }
-    console.log(!fieldData);
-    console.log(!fieldDisplayName);
-    console.log(fieldType);
     if (fieldType === "dropdown" && (!fieldDisplayName || !fieldData)) {
-      setError("Please fill details completely");
+      newErrors[fieldType] = "Please fill details completely";
+      toast.error("Display name and Field Data cannot be empty!");
       return;
     }
 
     if (fieldType === "date" && (!fieldDisplayName || !minDate || !maxDate)) {
-      setError("Please fill details completely");
+      newErrors[fieldType] = "Please fill details completely";
+      toast.error("Display name, min Date and max Date cannot be empty!");
       return;
     }
     if (inputs[category].length >= 4) {
-      setError("You can add only maximum of 4 input fields.");
+      newErrors[fieldType] = "Please fill details completely";
+      toast.error("You can add only maximum of 4 input fields.");
       return;
     }
     const currentFields = {
@@ -61,7 +62,7 @@ const FormFields = () => {
     setFieldData("");
     setMinDate("");
     setMaxDate("");
-    setMsg("Field added!");
+    if (Object.keys(newErrors).length === 0) toast.success("Field Added!");
   };
 
   const handleCategoryChange = (value) => {

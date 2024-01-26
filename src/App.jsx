@@ -1,14 +1,25 @@
 import DisplayFields from "./components/DisplayFields";
 import FormFields from "./components/FormFields";
-import Selector from "./components/Selector";
+import { ToastContainer, Bounce } from "react-toastify";
 
 function App() {
-  const dropdown=["Student", "SelfEmployee", "Business"];
   return (
     <>
-    {/* <Selector dropdown={dropdown} /> */}
       <FormFields />
       <DisplayFields />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </>
   );
 }

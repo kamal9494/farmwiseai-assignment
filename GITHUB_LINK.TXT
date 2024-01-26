@@ -1,0 +1,5 @@
+Github Link : https://github.com/kamal9494/farmwiseai-assignment/
+
+
+
+Deployment Link : https://farmwiseai-assignment.vercel.app/

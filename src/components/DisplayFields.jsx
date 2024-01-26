@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const DisplayFields = () => {
   const [category, setCategory] = useState("");
   const [inputValues, setInputValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [msg, setMsg] = useState("");
 
   const inputs = useSelector((state) => state.fields);
 
@@ -17,7 +16,6 @@ const DisplayFields = () => {
   };
 
   const validateInputs = () => {
-    setMsg("");
     const newErrors = {};
     inputs[category].forEach((input) => {
       const value = inputValues[input.fieldDisplayName] || "";
@@ -29,6 +27,8 @@ const DisplayFields = () => {
       const hasMaxDate = input.maxDate !== "";
       if (isRequired && !value) {
         newErrors[input.fieldDisplayName] = "Field is required.";
+        toast.error(input.fieldDisplayName + " field is required!");
+        return;
       }
 
       if (
@@ -38,6 +38,10 @@ const DisplayFields = () => {
       ) {
         newErrors[input.fieldDisplayName] =
           "Text length exceeds maximum length.";
+        toast.error(
+          input.fieldDisplayName + " text length exceeds maximum length."
+        );
+        return;
       }
 
       if (isDateType) {
@@ -50,12 +54,13 @@ const DisplayFields = () => {
           (maxDate && currentDate > maxDate)
         ) {
           newErrors[input.fieldDisplayName] = "Date is out of range.";
+          toast.error(input.fieldDisplayName + "date is out of range.");
+          return;
         }
       }
     });
-    console.log(inputValues);
-    setErrors(newErrors);
-    if(Object.keys(newErrors).length === 0) setMsg("Validation Success");
+    if (Object.keys(newErrors).length === 0)
+      toast.success("Validation Success");
   };
 
   const renderInputField = (input, index) => {
@@ -85,7 +90,11 @@ const DisplayFields = () => {
           >
             <option className="hidden ">Select</option>
             {input.fieldData.split(/[\s,]+/).map((option, optionIndex) => (
-              <option className="bg-white text-black" key={optionIndex} value={option}>
+              <option
+                className="bg-white text-black"
+                key={optionIndex}
+                value={option}
+              >
                 {option}
               </option>
             ))}
@@ -134,13 +143,6 @@ const DisplayFields = () => {
         </select>
       </div>
       <div className="flex flex-col list-none items-center gap-4 p-5">
-        {Object.keys(errors).map((errorField, index) => (
-          <li key={index} className="text-red-500">
-            {errorField} : {errors[errorField]}
-          </li>
-        ))}
-        {msg && <p className="text-green-500">{msg}</p>}
-
         {category && (
           <div className="flex flex-col items-center gap-5">
             {inputs[category].length === 0 && (
@@ -151,7 +153,12 @@ const DisplayFields = () => {
                 {inputs[category].map((input, index) => (
                   <tr key={index}>
                     <td>
-                      <span className="p-3">{input.fieldDisplayName}<span className="text-red-500">{input.isMandatory ? "*" : ""}</span></span>
+                      <span className="p-3">
+                        {input.fieldDisplayName}
+                        <span className="text-red-500">
+                          {input.isMandatory ? "*" : ""}
+                        </span>
+                      </span>
                     </td>
                     <td>{renderInputField(input, index)}</td>
                   </tr>
